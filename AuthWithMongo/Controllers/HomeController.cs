@@ -1,4 +1,5 @@
 using AuthWithMongo.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -27,6 +28,19 @@ namespace AuthWithMongo.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Authorize]
+        public IActionResult Dashboard()
+        {
+            ViewBag.Username = User.Identity.Name;
+            return View();
+        }
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminDashboard()
+        {
+            ViewBag.Username = User.Identity.Name;
+            return View();
         }
     }
 }

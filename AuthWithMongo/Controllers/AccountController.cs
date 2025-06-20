@@ -56,7 +56,8 @@ namespace AuthWithMongo.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role)
             };
 
             var identity = new ClaimsIdentity(claims, "MyCookieAuth");
@@ -82,7 +83,13 @@ namespace AuthWithMongo.Controllers
             return RedirectToAction("Login");
         }
 
-        [Authorize]
-        public IActionResult SecretPage() => View();
+        //This displays all the users
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SecretPage()
+        {
+            var users = await _context.Users.Find(_ => true).ToListAsync();
+            return View(users);
+        }
+
     }
 }

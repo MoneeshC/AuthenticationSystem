@@ -2013,11 +2013,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Learning WEB DEV\\Github Projects\\AuthApp\\AuthWithMongo\\AuthWithMongo.csproj",
+      "projectUniqueName": "D:\\Learning WEB DEV\\Github Projects\\AuthenticationSystem\\AuthWithMongo\\AuthWithMongo.csproj",
       "projectName": "AuthWithMongo",
-      "projectPath": "D:\\Learning WEB DEV\\Github Projects\\AuthApp\\AuthWithMongo\\AuthWithMongo.csproj",
+      "projectPath": "D:\\Learning WEB DEV\\Github Projects\\AuthenticationSystem\\AuthWithMongo\\AuthWithMongo.csproj",
       "packagesPath": "C:\\Users\\MONEESH\\.nuget\\packages\\",
-      "outputPath": "D:\\Learning WEB DEV\\Github Projects\\AuthApp\\AuthWithMongo\\obj\\",
+      "outputPath": "D:\\Learning WEB DEV\\Github Projects\\AuthenticationSystem\\AuthWithMongo\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MONEESH\\AppData\\Roaming\\NuGet\\NuGet.Config",
