@@ -33,80 +33,11 @@
                         <div class="card-body">
                             <h5 class="card-title">@quiz.Title</h5>
                             <p class="text-muted small">⏱ @quiz.TimeLimitSeconds seconds</p>
-                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editQuizModal-@quiz.Id">
-                                Edit
-                            </button>
-                            <form asp-action="DeleteQuiz" asp-controller="Quiz" method="post" class="d-inline"
-                                  onsubmit="return confirm('Are you sure you want to delete this quiz?');">
-                                <input type="hidden" name="id" value="@quiz.Id" />
-                                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-                            </form>
+                            <a asp-action="EditQuiz" asp-route-id="@quiz.Id" class="btn btn-outline-primary btn-sm">Edit</a>
+                            <a asp-action="DeleteQuiz" asp-route-id="@quiz.Id" class="btn btn-outline-danger btn-sm">Delete</a>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="editQuizModal-@quiz.Id" tabindex="-1">
-                <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                    <div class="modal-content rounded-4 shadow-sm">
-                        <form asp-action="UpdateQuiz" asp-controller="Quiz" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="Id" value="@quiz.Id" />
-
-                            <div class="modal-header">
-                                <h5 class="modal-title">Edit Quiz</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-
-                            <div class="modal-body">
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" name="Title" value="@quiz.Title" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="number" class="form-control" name="TimeLimitSeconds" value="@quiz.TimeLimitSeconds" />
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Replace Image (optional)</label>
-                                    <input type="file" class="form-control" name="quizImage" accept="image/*" />
-                                </div>
-
-                                @for (int i = 0; i < quiz.Questions.Count; i++)
-                                {
-                                    <div class="card question-block p-3 mb-3 shadow-sm">
-                                        <input type="text" class="form-control mb-2" placeholder="Question" 
-                                               name="Questions[i].Text" value="@quiz.Questions[i].Text" />
-
-                                        <div class="row g-2">
-                                            <div class="col-9">
-                                                @for (int j = 0; j < 4; j++)
-                                                {
-                                                    <input class="form-control mb-1" 
-                                                           name="Questions[@i].Options[@j]" 
-                                                           value="@quiz.Questions[i].Options[j]" />
-                                                }
-                                            </div>
-                                            @* <div class="col-3">
-                                                <label class="form-label">Correct</label>
-                                                    <select asp-for="Questions[i].CorrectIndex" class="form-select">
-                                                        @for (int opt = 0; opt < 4; opt++)
-                                                        {
-                                                            <option value="@opt">Option @(opt + 1)</option>
-                                                        }
-                                                    </select>
-
-                                            </div> *@
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Save Changes</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
             }
         </div>
     }
