@@ -123,4 +123,56 @@ public class QuizController : Controller
 
         return View(groupedAttempts);
     }
+
+
+    //This displays all the users
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> ManageQuiz()
+    {
+        var quizzes = await _context.Quizzes.Find(_ => true).ToListAsync();
+        return View(quizzes);
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPost]
+    public async Task<IActionResult> CreateQuiz(IFormFile quizImage, string title, int timeLimit, List<Question> questions)
+    {
+        if (quizImage == null || quizImage.Length == 0)
+        {
+            ModelState.AddModelError("", "Please upload an image.");
+            return View(); // Or return to ManageQuiz with error
+        }
+
+        // Save the uploaded image to wwwroot/images
+        var imageName = Path.GetFileName(quizImage.FileName);
+        var imagePath = Path.Combine("wwwroot/images", imageName);
+        using (var stream = new FileStream(imagePath, FileMode.Create))
+        {
+            await quizImage.CopyToAsync(stream);
+        }
+
+        var quiz = new Quiz
+        {
+            Title = title,
+            TimeLimitSeconds = timeLimit,
+            ImageUrl = "~/images/" + imageName,
+            Questions = questions.Select(q => new Question
+            {
+                Text = q.Text,
+                Options = q.Options,
+                CorrectIndex = q.CorrectIndex
+            }).ToList()
+        };
+
+        await _context.Quizzes.InsertOneAsync(quiz);
+        return RedirectToAction("ManageQuiz");
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPost]
+    public async Task<IActionResult> DeleteQuiz(string id)
+    {
+        await _context.Quizzes.DeleteOneAsync(q => q.Id == id);
+        return RedirectToAction("ManageQuiz");
+    }
 }
