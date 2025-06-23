@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "apchaD7uZZJ2XIHMp7bBsuzL6mGrLWIjq+I2fpFHXIE=",
+  "Hash": "/LyafB4lcC1cOeulD3+TxWvtCpr4JRramSIZOVIDJRA=",
   "Source": "AuthWithMongo",
   "BasePath": "_content/AuthWithMongo",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Learning WEB DEV\\Github Projects\\AuthenticationSystem\\AuthWithMongo\\wwwroot\\images\\ScienceQuiz.jpg",
+      "SourceId": "AuthWithMongo",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Learning WEB DEV\\Github Projects\\AuthenticationSystem\\AuthWithMongo\\wwwroot\\",
+      "BasePath": "_content/AuthWithMongo",
+      "RelativePath": "images/ScienceQuiz.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\ScienceQuiz.jpg"
     },
     {
       "Identity": "D:\\Learning WEB DEV\\Github Projects\\AuthenticationSystem\\AuthWithMongo\\wwwroot\\js\\site.js",

@@ -1,0 +1,16 @@
+{
+  "Title": "Science Quiz - Level 1",
+  "TimeLimitSeconds": 45,
+  "Questions": [
+    {
+      "Text": "What gas do plants absorb from the atmosphere?",
+      "Options": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+      "CorrectIndex": 1
+    },
+    {
+      "Text": "What is the boiling point of water?",
+      "Options": ["90°C", "100°C", "120°C", "212°C"],
+      "CorrectIndex": 1
+    }
+  ]
+}

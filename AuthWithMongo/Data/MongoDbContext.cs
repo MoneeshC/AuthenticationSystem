@@ -16,5 +16,7 @@ namespace AuthWithMongo.Data
         }
 
         public IMongoCollection<User> Users => _database.GetCollection<User>("Users");
+        public IMongoCollection<Quiz> Quizzes => _database.GetCollection<Quiz>("Quizzes");
+        public IMongoCollection<QuizAttempt> QuizAttempts => _database.GetCollection<QuizAttempt>("QuizAttempts");
     }
 }

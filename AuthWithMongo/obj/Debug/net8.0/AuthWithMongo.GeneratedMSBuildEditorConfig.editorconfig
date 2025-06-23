@@ -18,16 +18,20 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Learning WEB DEV\Github Projects\AuthenticationSystem\AuthWithMongo
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Account/AddUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBZGRVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Account/AllUsers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBbGxVc2Vycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Account/SecretPage.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxTZWNyZXRQYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Home/AdminDashboard.cshtml]
@@ -46,8 +50,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Quiz/AllQuizzes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVpelxBbGxRdWl6emVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Quiz/MyAttempts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVpelxNeUF0dGVtcHRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Quiz/QuizPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVpelxRdWl6UGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Quiz/QuizResult.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUXVpelxRdWl6UmVzdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Shared/_UserLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Vc2VyTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Learning WEB DEV/Github Projects/AuthenticationSystem/AuthWithMongo/Views/Shared/_ValidationScriptsPartial.cshtml]

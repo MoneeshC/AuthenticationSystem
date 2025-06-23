@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Quiz Results";
+    Layout = ViewData["Layout"]?.ToString();
+}
+
+<div class="container mt-5 text-center">
+    <h2 class="mb-3">🎉 Quiz Complete!</h2>
+    <p class="fs-4">You scored <strong>@ViewBag.Score</strong> out of <strong>@ViewBag.Total</strong>.</p>
+
+    <a asp-action="AllQuizzes" class="btn btn-primary mt-4">Try Another Quiz</a>
+</div>

@@ -68,6 +68,11 @@ namespace AuthWithMongo.Controllers
             if (result == PasswordVerificationResult.Success)
             {
                 // TODO: Set a cookie/session here
+                if (user.Role == "Admin")
+                    return RedirectToAction("AdminDashboard", "Home");
+                else if (user.Role == "User")
+                    return RedirectToAction("Dashboard", "Home");
+                else
                 return RedirectToAction("Index", "Home");
             }
 
@@ -85,10 +90,30 @@ namespace AuthWithMongo.Controllers
 
         //This displays all the users
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> SecretPage()
+        public async Task<IActionResult> AllUsers()
         {
             var users = await _context.Users.Find(_ => true).ToListAsync();
             return View(users);
+        }
+
+        //This displays all the users
+        [Authorize(Roles = "Admin")]
+        public IActionResult AddUser() => View();
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddNewUser(User user, string password, string userRole)
+        {
+            var exists = await _context.Users.Find(u => u.Email == user.Email).FirstOrDefaultAsync();
+            if (exists != null)
+            {
+                ModelState.AddModelError("", "User already exists");
+                return RedirectToAction("AllUsers");
+            }
+            user.Role = userRole; // Set the role from the form input
+            user.PasswordHash = _hasher.HashPassword(user, password);
+            await _context.Users.InsertOneAsync(user);
+            return RedirectToAction("AllUsers");
         }
 
     }

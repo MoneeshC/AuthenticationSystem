@@ -1,0 +1,44 @@
+﻿@model List<AuthWithMongo.Models.QuizAttemptStatsViewModel>
+@{
+    ViewData["Title"] = "My Quiz Attempts";
+    Layout = ViewData["Layout"]?.ToString();
+    int index = 1;
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">📘 My Quiz History</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">You haven't attempted any quizzes yet. Let's change that!</div>
+    }
+    else
+    {
+        @foreach (var group in Model)
+        {
+            <h4 class="mt-4">@group.QuizTitle</h4>
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Score</th>
+                        <th>%</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < group.Attempts.Count; i++)
+                    {
+                        var a = group.Attempts[i];
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@a.Score out of @a.Total</td>
+                            <td>@((double)a.Score / a.Total * 100)%</td>
+                            <td>@a.AttemptedAt.ToLocalTime().ToString("g")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>

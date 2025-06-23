@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Learning WEB DEV\\Github Projects\\AuthenticationSystem\\AuthWithMongo\\wwwroot\\images\\ScienceQuiz.jpg",
+      "PackagePath": "staticwebassets\\images\\ScienceQuiz.jpg"
+    },
+    {
       "Id": "D:\\Learning WEB DEV\\Github Projects\\AuthenticationSystem\\AuthWithMongo\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

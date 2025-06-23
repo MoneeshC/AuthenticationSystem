@@ -1,0 +1,33 @@
+﻿@model List<AuthWithMongo.Models.Quiz>
+
+@{
+    ViewData["Title"] = "Available Quizzes";
+    Layout = ViewData["Layout"]?.ToString();
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Choose a Quiz to Begin</h2>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-warning">No quizzes available right now. Please check back later!</div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var quiz in Model)
+            {
+                <div class="col">
+                    <div class="card shadow-sm h-100">
+                        <img src="@Url.Content(@quiz.ImageUrl)" class="card-img-top w-100" style="width: 240px; height: 240px;" alt="Quiz Image" />
+                        <div class="card-body">
+                            <h5 class="card-title">@quiz.Title</h5>
+                            <p class="card-text">Time Limit: @quiz.TimeLimitSeconds seconds</p>
+                            <a asp-action="Start" asp-route-id="@quiz.Id" class="btn btn-primary">Start Quiz</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

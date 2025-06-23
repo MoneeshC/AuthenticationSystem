@@ -1,0 +1,36 @@
+﻿@model AuthWithMongo.Models.User
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container mt-5">
+    <h2 class="mb-4">Add New User</h2>
+
+    <form asp-action="AddNewUser" method="post" class="w-50 mx-auto">
+        <div class="mb-3">
+            <label asp-for="Username" class="form-label"></label>
+            <input asp-for="Username" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Temp Password</label>
+            <input name="password" type="password" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">User Role</label><br />
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="userRole" id="adminRole" value="Admin" />
+                <label class="form-check-label" for="adminRole">Admin</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="userRole" id="userRole" value="User" />
+                <label class="form-check-label" for="userRole">User</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+</div>

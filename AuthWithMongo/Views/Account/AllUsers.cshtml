@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "All Users";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="container mt-4">
@@ -26,4 +27,7 @@
             }
         </tbody>
     </table>
+    <a class="btn btn-primary" asp-controller="Account" asp-action="AddUser">
+        <i class="bi bi-person-plus-fill"></i> Add New Users
+    </a>
 </div>
