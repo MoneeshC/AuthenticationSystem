@@ -1,0 +1,202 @@
+﻿@model AuthWithMongo.Models.Quiz
+
+<div class="modal fade" id="editQuizModal-@Model.Id" tabindex="-1" aria-labelledby="editQuizLabel-@Model.Id" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content rounded-4 shadow-sm">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editQuizLabel-@Model.Id">Edit Quiz</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form asp-action="UpdateQuiz" asp-controller="Quiz" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Id" value="@Model.Id" />
+
+                <div class="modal-body">
+                    <!-- Title and Time Limit -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Title" value="@Model.Title" placeholder="Quiz Title" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" class="form-control" name="TimeLimitSeconds" value="@Model.TimeLimitSeconds" placeholder="Time Limit (sec)" />
+                        </div>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="mb-3">
+                        <label class="form-label">Replace Banner (optional)</label>
+                        <input type="file" class="form-control" name="quizImage" accept="image/*" />
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <div class="position-relative mb-3" id="existingImagePreview-@Model.Id">
+                                <img src="@Url.Content(Model.ImageUrl)" alt="Quiz Banner" class="img-fluid rounded shadow-sm" style="max-height: 180px;" />
+                                <button type="button" class="btn-close position-absolute top-0 end-0 m-2 bg-white rounded-circle" aria-label="Remove Image" onclick="removeExistingImage('@Model.Id')"></button>
+                                <input type="hidden" name="KeepImage" value="true" />
+                            </div>
+                        }
+
+                    </div>
+
+                    <!-- Question Editor -->
+                    <div id="editQuestionBuilder-@Model.Id">
+                        @for (int i = 0; i < Model.Questions.Count; i++)
+                        {
+                            <div class="card question-block p-3 mb-3 shadow-sm">
+                                <button type="button" class="btn-close position-absolute top-0 end-0 m-2" onclick="removeQuestion(this)" aria-label="Remove Question"></button>
+                                <input type="text" class="form-control mb-2" name="Questions[@i].Text" value="@Model.Questions[i].Text" placeholder="Question text" />
+
+                                <div class="row g-2">
+                                    <div class="col-9">
+                                        @for (int j = 0; j < 4; j++)
+                                        {
+                                            <input class="form-control mb-1" name="Questions[@i].Options[@j]" value="@Model.Questions[i].Options[j]" placeholder="Option @(j + 1)" />
+                                        }
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-label">Correct</label>
+                                        <select class="form-select" name="Questions[@i].CorrectIndex">
+                                            @for (int opt = 0; opt < 4; opt++)
+                                            {
+                                                var isSelected = Model.Questions[i].CorrectIndex == opt ? "selected" : "";
+                                                <option value="@opt" selected="@(Model.Questions[i].CorrectIndex == opt)">
+                                                    Option @(opt + 1)
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <button type="button" class="btn btn-outline-secondary mb-3" onclick="addQuestionToEditModal('@Model.Id')">+ Add Question</button>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function addQuestionToEditModal(quizId) {
+        const container = document.getElementById(`editQuestionBuilder-${quizId}`);
+        const index = container.querySelectorAll('.question-block').length;
+
+        const block = `
+                        <div class="card question-block p-3 mb-3 shadow-sm position-relative">
+                        <button type="button" class="btn-close position-absolute top-0 end-0 m-2" onclick="removeQuestion(this)" aria-label="Remove Question"></button>
+                        <input type="text" class="form-control mb-2" name="Questions[${index}].Text" placeholder="Question text" />
+                        <div class="row g-2">
+                            <div class="col-9">
+                                <input class="form-control mb-1" name="Questions[${index}].Options[0]" placeholder="Option 1" />
+                                <input class="form-control mb-1" name="Questions[${index}].Options[1]" placeholder="Option 2" />
+                                <input class="form-control mb-1" name="Questions[${index}].Options[2]" placeholder="Option 3" />
+                                <input class="form-control mb-1" name="Questions[${index}].Options[3]" placeholder="Option 4" />
+                            </div>
+                            <div class="col-3">
+                                <label class="form-label">Correct Answer</label>
+                                <select class="form-select" name="Questions[${index}].CorrectIndex">
+                                    <option value="0">Option 1</option>
+                                    <option value="1">Option 2</option>
+                                    <option value="2">Option 3</option>
+                                    <option value="3">Option 4</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>`;
+        container.insertAdjacentHTML("beforeend", block);
+    }
+    function removeQuestion(button) {
+        const questionCard = button.closest('.question-block');
+        if (questionCard) {
+            questionCard.remove();
+        }
+
+        // Optional: renumber question indexes to keep name="Questions[0]" format in sync
+        renumberQuestions();
+    }
+
+    function renumberQuestions() {
+        const questionBlocks = document.querySelectorAll('.question-block');
+        questionBlocks.forEach((block, i) => {
+            block.querySelectorAll('input, select').forEach(input => {
+                // Update the name attributes (Questions[i].Text, Questions[i].Options[0], etc.)
+                input.name = input.name.replace(/Questions\[\d+\]/, `Questions[${i}]`);
+            });
+        });
+    }
+
+
+    document.querySelectorAll('[id^="editQuizModal-"] form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            const title = this.querySelector('[name="Title"]').value.trim();
+            const timer = this.querySelector('[name="TimeLimitSeconds"]').value.trim();
+            const questionBlocks = this.querySelectorAll('.question-block');
+
+            if (!title) {
+                alert("Quiz title is required.");
+                e.preventDefault();
+                return;
+            }
+
+            if (!timer) {
+                alert("Please provide the time of quiz.");
+                e.preventDefault();
+                return;
+            }
+
+            if (questionBlocks.length === 0) {
+                alert("Please add at least one question.");
+                e.preventDefault();
+                return;
+            }
+
+            for (let i = 0; i < questionBlocks.length; i++) {
+                const block = questionBlocks[i];
+                const qText = block.querySelector(`[name^="Questions[${i}].Text"]`)?.value.trim();
+                const options = block.querySelectorAll(`[name^="Questions[${i}].Options"]`);
+                const correct = block.querySelector(`[name^="Questions[${i}].CorrectIndex"]`);
+
+                if (!qText) {
+                    alert(`Question ${i + 1} must have text.`);
+                    e.preventDefault();
+                    return;
+                }
+
+                let filledOptions = 0;
+                options.forEach(opt => { if (opt.value.trim()) filledOptions++; });
+
+                if (filledOptions < 2) {
+                    alert(`Question ${i + 1} must have at least 2 options.`);
+                    e.preventDefault();
+                    return;
+                }
+
+                if (!correct || correct.value === "") {
+                    alert(`Please select a correct answer for Question ${i + 1}.`);
+                    e.preventDefault();
+                    return;
+                }
+            }
+        });
+    });
+
+    function removeExistingImage(quizId) {
+        const preview = document.getElementById(`existingImagePreview-${quizId}`);
+        if (preview) preview.remove();
+
+        const form = document.querySelector(`#editQuizModal-${quizId} form`);
+        const keepInput = form.querySelector('input[name="KeepImage"]');
+        if (keepInput) keepInput.value = "false";
+    }
+
+</script>
+<style>
+    .modal-body {
+        max-height: 65vh; /* or 70vh depending on your layout */
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+</style>

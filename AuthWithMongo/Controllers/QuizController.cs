@@ -137,11 +137,15 @@ public class QuizController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateQuiz(IFormFile quizImage, string title, int timeLimit, List<Question> questions)
     {
+
+        if (string.IsNullOrWhiteSpace(title))
+            ModelState.AddModelError("Title", "Title is required.");
+
         if (quizImage == null || quizImage.Length == 0)
-        {
-            ModelState.AddModelError("", "Please upload an image.");
-            return View(); // Or return to ManageQuiz with error
-        }
+            ModelState.AddModelError("quizImage", "Image is required.");
+
+        if (questions == null || questions.Count == 0)
+            ModelState.AddModelError("", "At least one question is required.");
 
         // Save the uploaded image to wwwroot/images
         var imageName = Path.GetFileName(quizImage.FileName);
@@ -175,4 +179,34 @@ public class QuizController : Controller
         await _context.Quizzes.DeleteOneAsync(q => q.Id == id);
         return RedirectToAction("ManageQuiz");
     }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPost]
+    public async Task<IActionResult> UpdateQuiz(string Id, string Title, int TimeLimitSeconds, IFormFile quizImage, List<Question> Questions, string KeepImage)
+    {
+        var update = Builders<Quiz>.Update
+            .Set(q => q.Title, Title)
+            .Set(q => q.TimeLimitSeconds, TimeLimitSeconds)
+            .Set(q => q.Questions, Questions);
+
+        if (quizImage != null && quizImage.Length > 0)
+        {
+            // Save new image
+            var imageName = Path.GetFileName(quizImage.FileName);
+            var imagePath = Path.Combine("wwwroot/images", imageName);
+            using var stream = new FileStream(imagePath, FileMode.Create);
+            await quizImage.CopyToAsync(stream);
+
+            update = update.Set(q => q.ImageUrl, "~/images/" + imageName);
+        }
+        else if (KeepImage == "false")
+        {
+            // Remove the old image
+            update = update.Set(q => q.ImageUrl, null);
+        }
+
+        await _context.Quizzes.UpdateOneAsync(q => q.Id == Id, update);
+        return RedirectToAction("ManageQuiz");
+    }
+
 }
